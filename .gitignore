@@ -1,0 +1,5 @@
+*.ftpconfig
+*.o
+*.gch
+*.csv
+*.result
