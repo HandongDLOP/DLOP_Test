@@ -21,7 +21,7 @@ int HGUNeuralNetwork::Propagate(float *pInput) {
 }
 
 int HGULayer::Propagate(float *pInput) {
-    m_pInput = pInput;  // for training
+    m_pInput = pInput; // for training
 
     for (int o = 0; o < m_outputDim; o++) {
         float  net      = 0.F;
@@ -31,7 +31,7 @@ int HGULayer::Propagate(float *pInput) {
         net += inWeight[m_inputDim];
 
         m_aOutput[o] = Activation(net);
-    }  // fully connected node
+    } // fully connected node
 
     return true;
 }
@@ -48,14 +48,15 @@ int HGUNeuralNetwork::ComputeGradient(float *pInput, short *pDesiredOutput) {
         if (i == m_noLayer - 1) m_aLayer[i].ComputeDeltaBar(pDesiredOutput);
         else m_aLayer[i + 1].Backpropagate(m_aLayer[i].GetDeltaBar());
 
-        m_aLayer[i].ComputeGradientFromDeltaBar();  // problem occured
+        m_aLayer[i].ComputeGradientFromDeltaBar(); // problem occured
     }
 
     return true;
 }
 
 int HGULayer::ComputeDeltaBar(short *pDesiredOutput) {
-    // if (GetMaxOutputIndex() != std::max_element(pDesiredOutput, pDesiredOutput + m_outputDim) - pDesiredOutput) {
+    // if (GetMaxOutputIndex() != std::max_element(pDesiredOutput,
+    // pDesiredOutput + m_outputDim) - pDesiredOutput) {
     //
     // } else std::cout << "no learning" << '\n';
 
@@ -70,12 +71,14 @@ int HGULayer::ComputeGradientFromDeltaBar() {
     int i = 0, o = 0;
 
     // compute delta from delta_bar
-    for (o = 0; o < m_outputDim; o++) m_aDelta[o] = m_aDeltaBar[o] * DerActivationFromOutput(m_aOutput[o]);  // problem occured
+    for (o = 0; o < m_outputDim; o++) m_aDelta[o] = m_aDeltaBar[o] * DerActivationFromOutput(m_aOutput[o]);  //
+                                                                                                             // problem
+                                                                                                             // occured
 
     // compute gradient from delta and input
     for (o = 0; o < m_outputDim; o++) {
         for (i = 0; i < m_inputDim; i++) m_aGradient[(m_inputDim + 1) * o + i] += m_aDelta[o] * m_pInput[i];
-        m_aGradient[(m_inputDim + 1) * o + m_inputDim] += m_aDelta[o];  // bias
+        m_aGradient[(m_inputDim + 1) * o + m_inputDim] += m_aDelta[o]; // bias
     }
 
     return true;
@@ -121,7 +124,7 @@ int HGULayer::UpdateWeight(float learningRate) {
             fprintf(pFile, "%f,",               m_aWeight[o * (m_inputDim + 1) + i]);
 
             m_aWeight[o * (m_inputDim + 1) + i]  -= learningRate * m_aGradient[o * (m_inputDim + 1) + i];
-            m_aGradient[o * (m_inputDim + 1) + i] = 0.F;  // reset gradient
+            m_aGradient[o * (m_inputDim + 1) + i] = 0.F; // reset gradient
         }
     }
 

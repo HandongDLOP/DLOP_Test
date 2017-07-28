@@ -13,8 +13,8 @@ class HGULayer {
     int m_outputDim;
 
     float *m_pInput;  // size: m_inputDim
-    float *m_aOutput;  // size: m_outputDim
-    float *m_aWeight;  // size: (m_inputDim + 1) * m_outputDim
+    float *m_aOutput; // size: m_outputDim
+    float *m_aWeight; // size: (m_inputDim + 1) * m_outputDim
 
     // only for training
     float *m_aGradient;
@@ -24,7 +24,9 @@ class HGULayer {
     // member function
 
 public:
-    HGULayer() {};
+
+    HGULayer() {}
+
     ~HGULayer() {
         // Delete();
     }
@@ -45,12 +47,15 @@ public:
         m_aDeltaBar = new float[m_outputDim];
 
         return true;
-    };
+    }
 
     int InitialWeight() {
-        // random device class instance, source of 'true' randomness for initializing random seed
+        // random device class instance, source of 'true' randomness for
+        // initializing random seed
         std::random_device rd;
-        // Mersenne twister PRNG, initialized with seed from previous random device instance
+
+        // Mersenne twister PRNG, initialized with seed from previous random
+        // device instance
         std::mt19937 gen(rd());
 
         for (int o = 0; o < m_outputDim; o++) {
@@ -70,7 +75,7 @@ public:
         delete[] m_aGradient;
         delete[] m_aDelta;
         delete[] m_aDeltaBar;
-    };
+    }
 
     int GetOutputDim() {
         return m_outputDim;
@@ -104,4 +109,4 @@ public:
     }
 };
 
-#endif  // _HGULayer_HPP_
+#endif // _HGULayer_HPP_

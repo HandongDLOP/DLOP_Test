@@ -7,7 +7,8 @@ class HGUNeuralNetwork {
     int m_noLayer;
 
 public:
-    HGULayer *m_aLayer;  // array of HGULayers
+
+    HGULayer *m_aLayer; // array of HGULayers
 
     HGUNeuralNetwork() {
         m_noLayer = 0;
@@ -38,8 +39,9 @@ public:
         return m_aLayer[m_noLayer - 1].GetMaxOutputIndex();
     }
 
-    int ComputeGradient(float *pInput, short *pDesiredOutput);
+    int ComputeGradient(float *pInput,
+                        short *pDesiredOutput);
     int UpdateWeight(float learningRate);
 };
 
-#endif  // _HGUNeuralNetwork_H_
+#endif // _HGUNeuralNetwork_H_

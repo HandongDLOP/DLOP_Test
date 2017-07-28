@@ -26,12 +26,13 @@ inline const double ReLU(const double A, const double B) {
 }
 
 class Neuron {
-    double W_;  // weight of one input
-    double b_;  // bias
+    double W_;              // weight of one input
+    double b_;              // bias
 
-    double input_, output_;  // saved for back-prop
+    double input_, output_; // saved for back-prop
 
 public:
+
     Neuron() : W_(2.0), b_(1.0) {
         std::cout << "Neuron()" << '\n';
     }
@@ -47,12 +48,12 @@ public:
     }
 
     void propBackward(const double& target) {
-        const double alpha = 0.1;  // learning Rate
+        const double alpha = 0.1; // learning Rate
 
         const double grad = (output_ - target) * getActGrad(output_);
 
-        W_ -= alpha * grad * input_;  // last input_) camr from d(wx+b)/dw = x
-        b_ -= alpha * grad * 1.0;  // last 1.0 came from d(wx_b)/dw
+        W_ -= alpha * grad * input_; // last input_) camr from d(wx+b)/dw = x
+        b_ -= alpha * grad * 1.0;    // last 1.0 came from d(wx_b)/dw
     }
 
     const double getActivation(const double& x) {
@@ -65,12 +66,15 @@ public:
 
     double getActGrad(const double& x) {
         if (x > 0.0) return 1.0;
+
         return .0;
+
         // return 1.0;
     }
 
     void feedforwardAndPrint(const double& input) {
-        std::cout << "input: " << input << " result: " << feedforward(input) << '\n';
+        std::cout << "input: " << input << " result: " << feedforward(input) <<
+            '\n';
     }
 
     void GetWeightAndBias() {

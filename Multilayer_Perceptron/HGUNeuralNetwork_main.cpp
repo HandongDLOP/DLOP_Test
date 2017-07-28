@@ -28,7 +28,8 @@ int main(int argc, char const *argv[]) {
 
         fprintf(pFile, "\n");
 
-        // std::cout << "input " << input[i % 4][0] << "," << input[i % 4][1] << " : ";
+        // std::cout << "input " << input[i % 4][0] << "," << input[i % 4][1] <<
+        // " : ";
 
         my_Neuralnet.ComputeGradient(input[i % 4], DesiredOutput[i % 4]);
         my_Neuralnet.UpdateWeight(0.1);
