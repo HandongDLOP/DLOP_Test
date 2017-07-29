@@ -22,14 +22,13 @@
 #include <iostream>
 
 /*
- * @ Definition   : Model (Graph) 구성 요소 정의
+ * @ Definition   : Neuron 구성 요소 정의 (without ActivationFunction)
  *
  * @ Structure    : Single_Neuron,
  *                  Propagation,
- *                  Output_from_Graph,
  *
  * @ Member       : Weight,
-                    Bias
+                    Bias,
  *
  */
 
@@ -44,54 +43,78 @@ private:
 
 public:
 
-    Neuron();
-    virtual ~Neuron();
+    Neuron(){
+        SetAllocation();
+    }
+    virtual ~Neuron(){
+        Delete();
+    }
+
+    void SetAllocation() {
+        m_Weight = new double;
+        m_Bias   = new double;
+        m_input  = new double;
+        m_output = new double;
+    }
+
+    void Delete() {
+        delete m_Weight;
+        delete m_Bias;
+        delete m_input;
+        delete m_output;
+    }
 
     // Structure
-    const double forwardPropagation(const double& p_input);
+    double  forwardPropagation(const double& p_input);
+
+    // Getter
+    double* GetOutput() {
+        return m_output;
+    }
+
+    // Setter
+    void SetOutput(double p_output) {
+        *m_output = p_output;
+    }
 };
 
 
 /*
- * Definition : ActivationFunction class 정의
+ * @ Definition  : ActivationFunction class 정의
  *
- * Param      : input, output
+ * @ class Param : Neuron,
  */
 class ActivationFunction {
 private:
 
-    Neuron *m_Neuron;
+    /*No data*/
 
 public:
 
     ActivationFunction();
     virtual ~ActivationFunction();
 
-    inline const double ReLU(const double input,
-                             const double output);
-    inline const double Identity(const double input,
-                                 const double output);
+    inline const double ReLU(Neuron p_Neuron);
+    inline const double Identity(Neuron p_Neuron);
 };
 
 
 /*
- * @ Definition   : ActivationFunction class 정의
+ * @ Definition   : BackPropagation class 정의
  *
- * @ Param        : desired_output, output
- *
- * @ Class Member : Model
  */
 class BackPropagation {
 private:
 
-    Neuron *m_Neuron;
+    /*No data*/
 
 public:
 
     BackPropagation();
     virtual ~BackPropagation();
 
-    void                GradientDescent(const double& desired_output);
+    void                GradientDescent(Neuron        p_Neuron,
+                                        const double& desired_output);
     inline const double getActGradient(const double& output);
 };
 
