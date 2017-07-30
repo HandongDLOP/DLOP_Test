@@ -70,7 +70,7 @@ inline const double BackPropagation::getReLUGradient(const double& output) {
 // For BackPropagation
 void SingleNeuron::UpdateWeightandBias(const double& LearningRate,
                                        const double& Gradient) {
-    // last input_) came from d(wx+b)/dw = x
+    // last m_input came from d(wx+b)/dw = x
     m_Weight[0] -= LearningRate * Gradient * m_input[0];
 
     // last 1.0 came from d(wx_b)/dw
