@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "Single_Neuron_re.hpp"
+#include "Single_Neuron.hpp"
 
 // For Initialization
 void SingleNeuron::InitializeWeightandBias() {
