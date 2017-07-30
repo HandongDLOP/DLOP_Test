@@ -2,109 +2,75 @@
  * =====================================================================================
  *
  *       Filename:  test.cpp
- *
+ *       Licensed:  MIT
  *    Description:
  *
  *        Version:  1.0
- *        Created:  2017년 07월 19일 16시 39분 08초
+ *        Created:  2017년 07월 28일
  *       Revision:  none
- *       Compiler:  gcc
+ *       Compiler:  g++
  *
- *         Author:  YOUR NAME (),
- *   Organization:
+ *         Author:  Park.Chun.Myong
+ *   Organization:  HandongDLOP
  *
  * =====================================================================================
  */
-#include <iostream>
 
-inline const double ReLU(const double A, const double B) {
-    double result = 0.0;
+#include "Single_Neuron_re.hpp"
 
-    if (A < B) result = B;
-
-    return (const double)result;
+// For Initialization
+void SingleNeuron::InitializeWeightandBias() {
+    m_Weight[0] = 2.0;
+    m_Bias[0]   = 1.0;
 }
 
-class Neuron {
-    double W_;              // weight of one input
-    double b_;              // bias
+// For ForwardPropagation
+void ActivationFunction::ReLU(SingleNeuron& p_Neuron,
+                              const double& p_input) {
+    double *output = p_Neuron.GetOutput();
 
-    double input_, output_; // saved for back-prop
+    double Sigma = p_Neuron.MakeSigma(p_input);
 
-public:
-
-    Neuron() : W_(2.0), b_(1.0) {
-        std::cout << "Neuron()" << '\n';
+    if (0.0 < Sigma) {
+        *output = Sigma;
+        return;
     }
 
-    double feedforward(const double& _input) {
-        input_ = _input;
+    *output = 0.0;
+}
 
-        const double sigma = W_ * input_ + b_;
+// For FowardPropagation
+double SingleNeuron::MakeSigma(const double& p_input) {
+    *m_input = p_input;
 
-        output_ = getActivation(sigma);
+    double Sigma = m_Weight[0] * m_input[0] + m_Bias[0];
 
-        return output_;
-    }
+    return Sigma;
+}
 
-    void propBackward(const double& target) {
-        const double alpha = 0.1; // learning Rate
+// For BackPropagation
+void BackPropagation::GradientDescent(SingleNeuron& p_Neuron,
+                                      const double& desired_output,
+                                      const double& LearningRate) {
+    double *output        = p_Neuron.GetOutput();
+    const double Gradient = (*output - desired_output) * getReLUGradient(*output);
 
-        const double grad = (output_ - target) * getActGrad(output_);
+    p_Neuron.UpdateWeightandBias(LearningRate, Gradient);
+}
 
-        W_ -= alpha * grad * input_; // last input_) camr from d(wx+b)/dw = x
-        b_ -= alpha * grad * 1.0;    // last 1.0 came from d(wx_b)/dw
-    }
+// For BackPropagation
+inline const double BackPropagation::getReLUGradient(const double& output) {
+    if (output > 0.0) return 1.0;
 
-    const double getActivation(const double& x) {
-        // for linear or identity activation functions
-        // return x;
+    return .0;
+}
 
-        // for ReLU activation functions
-        return ReLU(0.0, x);
-    }
+// For BackPropagation
+void SingleNeuron::UpdateWeightandBias(const double& LearningRate,
+                                       const double& Gradient) {
+    // last input_) came from d(wx+b)/dw = x
+    m_Weight[0] -= LearningRate * Gradient * m_input[0];
 
-    double getActGrad(const double& x) {
-        if (x > 0.0) return 1.0;
-
-        return .0;
-
-        // return 1.0;
-    }
-
-    void feedforwardAndPrint(const double& input) {
-        std::cout << "input: " << input << " result: " << feedforward(input) <<
-            '\n';
-    }
-
-    void GetWeightAndBias() {
-        std::cout << "(W, b) : (" << W_ << ", " << b_ << ")" << '\n';
-    }
-};
-
-int main(int argc, char const *argv[]) {
-    // initialize my_Neuron
-    double input_  = 0.0;
-    double target_ = 0.0;
-
-    std::cout << "PLEASE MAKE INPUT : ";
-    std::cin >> input_;
-
-    std::cout << "PLEASE MAKE DESIRED OUTPUT : ";
-    std::cin >> target_;
-
-    std::cout << "initialize : W = 2.0, b = 1.0" << '\n';
-
-    Neuron my_Neuron;
-
-    for (int r = 0; r < 100; r++) {
-        std::cout << "Training " << double(r) << '\n';
-        my_Neuron.feedforwardAndPrint(input_);
-        my_Neuron.propBackward(target_);
-        my_Neuron.GetWeightAndBias();
-    }
-
-    std::cout << "*****End******" << '\n';
-
-    return 0;
+    // last 1.0 came from d(wx_b)/dw
+    m_Bias[0] -= LearningRate * Gradient * 1.0;
 }
