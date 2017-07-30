@@ -1,6 +1,6 @@
 #include "Single_Neuron.hpp"
 
-using namespace dlop;
+//using namespace dlop;
 
 int main(int argc, char const *argv[]) {
     // Input Data
@@ -8,7 +8,7 @@ int main(int argc, char const *argv[]) {
     double desired_output = 4.0;
 
     // Model Define
-    SingleNeuron m_SingleNeuron;
+    dlop::SingleNeuron m_SingleNeuron;
 
     // Initialize Weight and Bias
     m_SingleNeuron.InitializeWeightandBias();
@@ -16,17 +16,19 @@ int main(int argc, char const *argv[]) {
     // Learning Graph
     for (int count = 0; count < 100; count++) {
         std::cout << "count: " << count << '\n';
+
         // ForwardPropagation
-        ActivationFunction().ReLU(m_SingleNeuron, input);
+        dlop::ActivationFunction().ReLU(m_SingleNeuron, input);
 
         // Output Check
         m_SingleNeuron.NeuronStatus();
 
-        // BackPropagation
-        BackPropagation().GradientDescent(m_SingleNeuron, desired_output, 0.1);
+        // BackPropagation ; LearningRate = 0.1
+        dlop::BackPropagation().GradientDescent(m_SingleNeuron, desired_output, 0.1);
     }
 
     std::cout << "Result: " << '\n';
+
     // 학습 결과 확인
     m_SingleNeuron.NeuronStatus();
 
