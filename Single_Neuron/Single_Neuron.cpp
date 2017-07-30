@@ -18,6 +18,8 @@
 
 #include "Single_Neuron.hpp"
 
+using namespace dlop;
+
 // For Initialization
 void SingleNeuron::InitializeWeightandBias() {
     m_Weight[0] = 2.0;

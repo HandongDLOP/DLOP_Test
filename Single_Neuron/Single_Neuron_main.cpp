@@ -1,5 +1,7 @@
 #include "Single_Neuron.hpp"
 
+using namespace dlop;
+
 int main(int argc, char const *argv[]) {
     // Input Data
     double input          = 1.0;

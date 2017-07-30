@@ -21,6 +21,7 @@
 
 #include <iostream>
 
+namespace dlop {
 /*
  * @ Definition   : Neuron 구성 요소 정의 (without ActivationFunction)
  *
@@ -67,7 +68,6 @@ public:
         delete m_output;
     }
 
-    // Structure
     void   InitializeWeightandBias();
     double MakeSigma(const double& p_input);            // Sigma = Weight *
                                                         // input + bias
@@ -123,5 +123,6 @@ public:
                                         const double& LearningRate);
     inline const double getReLUGradient(const double& output);
 };
+} // namespace dlop
 
 #endif // SINGLE_NEURON_HPP_
