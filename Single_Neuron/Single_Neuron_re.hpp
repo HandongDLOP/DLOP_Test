@@ -28,7 +28,9 @@
  *                  Propagation,
  *
  * @ Member       : Weight,
-                    Bias,
+ *                  Bias,
+ *                  input   // for ForwardPropagation
+ *                  output  // for BackPropagation
  *
  */
 
@@ -67,25 +69,22 @@ public:
 
     // Structure
     void   InitializeWeightandBias();
-    double MakeSigma(const double& p_input); // Sigma = Weight * input + Bias
+    double MakeSigma(const double& p_input);            // Sigma = Weight *
+                                                        // input + bias
     void   UpdateWeightandBias(const double& LearningRate,
-                               const double& Gradient);
+                               const double& Gradient); // Learning Graph
 
     // Getter
     double* GetOutput() {
         return m_output;
     }
 
-    void StatusNeuron() {
+    // ForwardPropagation 결과 확인
+    void NeuronStatus() {
         std::cout << "input: " << m_input[0] << " result: " << m_output[0] <<
             '\n';
         std::cout << "(W, b) : (" << m_Weight[0] << ", " << m_Bias[0] << ")" <<
             '\n';
-    }
-
-    // Setter
-    void SetOutput(double p_output) {
-        *m_output = p_output;
     }
 };
 
@@ -93,23 +92,18 @@ public:
 /*
  * @ Definition  : ActivationFunction class 정의
  *
- * @ class Param : Neuron,
  */
 class ActivationFunction {
-private:
-
-    /*No data*/
-
 public:
 
     ActivationFunction() {}
 
     ~ActivationFunction() {}
 
-    double ReLU(Neuron      & p_Neuron,
-                const double& p_input);
+    void ReLU(Neuron      & p_Neuron,
+              const double& p_input);
 
-    // inline const double Identity(Neuron p_Neuron, const double& p_input);
+    // double Identity(Neuron p_Neuron, const double& p_input);
 };
 
 
@@ -118,10 +112,6 @@ public:
  *
  */
 class BackPropagation {
-private:
-
-    /*No data*/
-
 public:
 
     BackPropagation() {}

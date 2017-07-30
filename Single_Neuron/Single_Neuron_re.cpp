@@ -18,26 +18,25 @@
 
 #include "Single_Neuron_re.hpp"
 
-// For FowardPropagation
+// For Initialization
 void Neuron::InitializeWeightandBias() {
     m_Weight[0] = 2.0;
     m_Bias[0]   = 1.0;
 }
 
 // For ForwardPropagation
-double ActivationFunction::ReLU(Neuron      & p_Neuron,
-                                const double& p_input) {
+void ActivationFunction::ReLU(Neuron      & p_Neuron,
+                              const double& p_input) {
     double *output = p_Neuron.GetOutput();
 
     double Sigma = p_Neuron.MakeSigma(p_input);
 
     if (0.0 < Sigma) {
         *output = Sigma;
-        return *output;
+        return;
     }
 
     *output = 0.0;
-    return *output;
 }
 
 // For FowardPropagation
