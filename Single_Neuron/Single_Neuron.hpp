@@ -34,7 +34,6 @@ namespace dlop {
  *                 output  // for BackPropagation
  *
  */
-
 class SingleNeuron {
 private:
 
