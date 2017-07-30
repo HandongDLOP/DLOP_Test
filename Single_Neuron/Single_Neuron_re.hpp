@@ -102,8 +102,9 @@ private:
 
 public:
 
-    ActivationFunction(){}
-    ~ActivationFunction(){}
+    ActivationFunction() {}
+
+    ~ActivationFunction() {}
 
     double ReLU(Neuron      & p_Neuron,
                 const double& p_input);
@@ -123,8 +124,9 @@ private:
 
 public:
 
-    BackPropagation(){}
-    ~BackPropagation(){}
+    BackPropagation() {}
+
+    ~BackPropagation() {}
 
     void                GradientDescent(Neuron      & p_Neuron,
                                         const double& desired_output,
