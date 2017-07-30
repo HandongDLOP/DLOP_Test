@@ -47,7 +47,7 @@ public:
         SetAllocation();
     }
 
-    virtual ~Neuron() {
+    ~Neuron() {
         Delete();
     }
 
@@ -76,6 +76,13 @@ public:
         return m_output;
     }
 
+    void StatusNeuron() {
+        std::cout << "input: " << m_input[0] << " result: " << m_output[0] <<
+            '\n';
+        std::cout << "(W, b) : (" << m_Weight[0] << ", " << m_Bias[0] << ")" <<
+            '\n';
+    }
+
     // Setter
     void SetOutput(double p_output) {
         *m_output = p_output;
@@ -95,18 +102,18 @@ private:
 
 public:
 
-    ActivationFunction();
-    virtual ~ActivationFunction();
+    ActivationFunction(){}
+    ~ActivationFunction(){}
 
-    inline const double ReLU(Neuron        p_Neuron,
-                             const double& p_input);
+    double ReLU(Neuron      & p_Neuron,
+                const double& p_input);
 
     // inline const double Identity(Neuron p_Neuron, const double& p_input);
 };
 
 
 /*
- * @ Definition   : Back class 정의
+ * @ Definition   : BackPropagation class 정의
  *
  */
 class BackPropagation {
@@ -116,16 +123,13 @@ private:
 
 public:
 
-    BackPropagation(Neuron        p_Neuron,
-                    const double& desired_output,
-                    const double& LearningRate);
-    virtual ~BackPropagation();
+    BackPropagation(){}
+    ~BackPropagation(){}
 
-    void                GradientDescent(Neuron        p_Neuron,
+    void                GradientDescent(Neuron      & p_Neuron,
                                         const double& desired_output,
                                         const double& LearningRate);
     inline const double getReLUGradient(const double& output);
 };
-
 
 #endif // SINGLE_NEURON_HPP_

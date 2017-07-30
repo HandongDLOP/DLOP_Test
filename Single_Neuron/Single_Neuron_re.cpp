@@ -24,18 +24,9 @@ void Neuron::InitializeWeightandBias() {
     m_Bias[0]   = 1.0;
 }
 
-// For FowardPropagation
-double Neuron::MakeSigma(const double& p_input) {
-    *m_input = p_input;
-
-    double Sigma = m_Weight[0] * m_input[0] + m_Bias[0];
-
-    return Sigma;
-}
-
 // For ForwardPropagation
-inline const double ActivationFunction::ReLU(Neuron        p_Neuron,
-                                             const double& p_input) {
+double ActivationFunction::ReLU(Neuron      & p_Neuron,
+                                const double& p_input) {
     double *output = p_Neuron.GetOutput();
 
     double Sigma = p_Neuron.MakeSigma(p_input);
@@ -49,15 +40,17 @@ inline const double ActivationFunction::ReLU(Neuron        p_Neuron,
     return *output;
 }
 
-// For BackPropagation
-BackPropagation::BackPropagation(Neuron        p_Neuron,
-                                 const double& desired_output,
-                                 const double& LearningRate) {
-    GradientDescent(p_Neuron, desired_output, LearningRate);
+// For FowardPropagation
+double Neuron::MakeSigma(const double& p_input) {
+    *m_input = p_input;
+
+    double Sigma = m_Weight[0] * m_input[0] + m_Bias[0];
+
+    return Sigma;
 }
 
 // For BackPropagation
-void BackPropagation::GradientDescent(Neuron        p_Neuron,
+void BackPropagation::GradientDescent(Neuron      & p_Neuron,
                                       const double& desired_output,
                                       const double& LearningRate) {
     double *output        = p_Neuron.GetOutput();
