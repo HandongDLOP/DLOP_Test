@@ -43,10 +43,11 @@ private:
 
 public:
 
-    Neuron(){
+    Neuron() {
         SetAllocation();
     }
-    virtual ~Neuron(){
+
+    virtual ~Neuron() {
         Delete();
     }
 
@@ -65,7 +66,10 @@ public:
     }
 
     // Structure
-    double  forwardPropagation(const double& p_input);
+    void   InitializeWeightandBias();
+    double MakeSigma(const double& p_input); // Sigma = Weight * input + Bias
+    void   UpdateWeightandBias(const double& LearningRate,
+                               const double& Gradient);
 
     // Getter
     double* GetOutput() {
@@ -94,13 +98,15 @@ public:
     ActivationFunction();
     virtual ~ActivationFunction();
 
-    inline const double ReLU(Neuron p_Neuron);
-    inline const double Identity(Neuron p_Neuron);
+    inline const double ReLU(Neuron        p_Neuron,
+                             const double& p_input);
+
+    // inline const double Identity(Neuron p_Neuron, const double& p_input);
 };
 
 
 /*
- * @ Definition   : BackPropagation class 정의
+ * @ Definition   : Back class 정의
  *
  */
 class BackPropagation {
@@ -110,12 +116,15 @@ private:
 
 public:
 
-    BackPropagation();
+    BackPropagation(Neuron        p_Neuron,
+                    const double& desired_output,
+                    const double& LearningRate);
     virtual ~BackPropagation();
 
     void                GradientDescent(Neuron        p_Neuron,
-                                        const double& desired_output);
-    inline const double getActGradient(const double& output);
+                                        const double& desired_output,
+                                        const double& LearningRate);
+    inline const double getReLUGradient(const double& output);
 };
 
 
