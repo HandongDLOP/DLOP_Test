@@ -1,31 +1,32 @@
 #include "Single_Neuron_re.hpp"
 
 int main(int argc, char const *argv[]) {
-
     // Input Data
     double input          = 1.0;
     double desired_output = 4.0;
 
     // Model Define
-    Neuron Single_Neuron;
+    SingleNeuron m_SingleNeuron;
 
     // Initialize Weight and Bias
-    Single_Neuron.InitializeWeightandBias();
+    m_SingleNeuron.InitializeWeightandBias();
 
     // Learning Graph
     for (int count = 0; count < 100; count++) {
+        std::cout << "count: " << count << '\n';
         // ForwardPropagation
-        ActivationFunction().ReLU(Single_Neuron, input);
+        ActivationFunction().ReLU(m_SingleNeuron, input);
 
         // Output Check
-        Single_Neuron.NeuronStatus();
+        m_SingleNeuron.NeuronStatus();
 
         // BackPropagation
-        BackPropagation().GradientDescent(Single_Neuron, desired_output, 0.1);
+        BackPropagation().GradientDescent(m_SingleNeuron, desired_output, 0.1);
     }
 
+    std::cout << "Result: " << '\n';
     // 학습 결과 확인
-    Single_Neuron.NeuronStatus();
+    m_SingleNeuron.NeuronStatus();
 
     return 0;
 }

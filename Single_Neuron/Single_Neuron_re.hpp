@@ -34,7 +34,7 @@
  *
  */
 
-class Neuron {
+class SingleNeuron {
 private:
 
     // @ Member
@@ -45,11 +45,11 @@ private:
 
 public:
 
-    Neuron() {
+    SingleNeuron() {
         SetAllocation();
     }
 
-    ~Neuron() {
+    ~SingleNeuron() {
         Delete();
     }
 
@@ -100,7 +100,7 @@ public:
 
     ~ActivationFunction() {}
 
-    void ReLU(Neuron      & p_Neuron,
+    void ReLU(SingleNeuron& p_Neuron,
               const double& p_input);
 
     // double Identity(Neuron p_Neuron, const double& p_input);
@@ -118,7 +118,7 @@ public:
 
     ~BackPropagation() {}
 
-    void                GradientDescent(Neuron      & p_Neuron,
+    void                GradientDescent(SingleNeuron& p_Neuron,
                                         const double& desired_output,
                                         const double& LearningRate);
     inline const double getReLUGradient(const double& output);
