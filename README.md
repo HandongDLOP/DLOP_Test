@@ -1,3 +1,3 @@
 # DLOP_test
 
-배포 전 연습 저장소 입니다.
+* $ git clone http://github.com/HandongDLOP/DLOP_test
