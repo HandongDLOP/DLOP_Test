@@ -30,8 +30,7 @@ void SingleNeuron::InitializeWeightandBias() {
 void ActivationFunction::ReLU(SingleNeuron& p_Neuron,
                               const double& p_input) {
     double *output = p_Neuron.GetOutput();
-
-    double Sigma = p_Neuron.MakeSigma(p_input);
+    double  Sigma  = p_Neuron.MakeSigma(p_input);
 
     if (0.0 < Sigma) {
         *output = Sigma;
