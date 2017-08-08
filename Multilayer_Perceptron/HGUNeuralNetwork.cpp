@@ -3,6 +3,12 @@
 
 #include <iostream>
 
+using namespace dlop;
+
+void HGUNeuralNetwork::AllocEachLayer(int LayerNumber, int inputDim, int outputDim){
+    m_aLayer[LayerNumber].Alloc(inputDim, outputDim);
+}
+
 int HGUNeuralNetwork::Propagate(float *pInput) {
     if (IsAllocated() == false) {
         std::cout << "HGUNeuralNetwork was not allocated!" << std::endl;
@@ -55,11 +61,6 @@ int HGUNeuralNetwork::ComputeGradient(float *pInput, short *pDesiredOutput) {
 }
 
 int HGULayer::ComputeDeltaBar(short *pDesiredOutput) {
-    // if (GetMaxOutputIndex() != std::max_element(pDesiredOutput,
-    // pDesiredOutput + m_outputDim) - pDesiredOutput) {
-    //
-    // } else std::cout << "no learning" << '\n';
-
     for (int o = 0; o < m_outputDim; o++) {
         m_aDeltaBar[o] = (m_aOutput[o] - pDesiredOutput[o]) / m_outputDim;
     }
@@ -71,9 +72,7 @@ int HGULayer::ComputeGradientFromDeltaBar() {
     int i = 0, o = 0;
 
     // compute delta from delta_bar
-    for (o = 0; o < m_outputDim; o++) m_aDelta[o] = m_aDeltaBar[o] * DerActivationFromOutput(m_aOutput[o]);  //
-                                                                                                             // problem
-                                                                                                             // occured
+    for (o = 0; o < m_outputDim; o++) m_aDelta[o] = m_aDeltaBar[o] * DerActivationFromOutput(m_aOutput[o]);
 
     // compute gradient from delta and input
     for (o = 0; o < m_outputDim; o++) {

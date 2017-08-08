@@ -13,15 +13,13 @@ int main(int argc, char const *argv[]) {
                                   { 0 } };
 
 
-    HGUNeuralNetwork my_Neuralnet;
+    dlop::HGUNeuralNetwork my_Neuralnet(2);
 
-    my_Neuralnet.Alloc(2);
+    my_Neuralnet.AllocEachLayer(0, 2, 3);
 
-    my_Neuralnet.m_aLayer[0].Alloc(2, 3);
+    my_Neuralnet.AllocEachLayer(1, 3, 1);
 
-    my_Neuralnet.m_aLayer[1].Alloc(3, 1);
-
-    for (int i = 0; i < 2000000; i++) {
+    for (int i = 0; i < 1000000; i++) {
         std::cout << "count: " << i << '\n';
 
         FILE *pFile = fopen("Weight.csv", "at");
@@ -32,7 +30,7 @@ int main(int argc, char const *argv[]) {
         // " : ";
 
         my_Neuralnet.ComputeGradient(input[i % 4], DesiredOutput[i % 4]);
-        my_Neuralnet.UpdateWeight(0.1);
+        my_Neuralnet.UpdateWeight(0.3);
 
         if (i % 10 == 9) {
             my_Neuralnet.Propagate(input[0]);
