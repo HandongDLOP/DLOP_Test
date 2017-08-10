@@ -7,8 +7,7 @@ namespace dlop {
 /*
  * @Definition   : 전체 NeuralNetwork 구성 요소 및 작동 메커니즘 정의
  *
- * @Structure    : Multilayer_Perceptron
- *                 Propagate
+ * @Structure    : Propagate
  *                 ComputeGradient
  *                 updateWeight
  *
