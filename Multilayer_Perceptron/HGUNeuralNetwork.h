@@ -17,13 +17,11 @@ namespace dlop {
  */
 class HGUNeuralNetwork {
 private:
-
     // @Member
     int m_noLayer;
     HGULayer *m_aLayer;
 
 public:
-
     HGUNeuralNetwork(int p_noLayer) {
         Alloc(p_noLayer);
     }
@@ -93,8 +91,16 @@ public:
      * @param learningRate
      *        학습에서 사용되는 LearningRate 값이다.
      */
-    int UpdateWeight(float learningRate);
+    int  UpdateWeight(float learningRate);
+
+    /*
+     * @brief ForwardPropagation 결과 값을 알려준다.
+     *
+     * @param pInpput
+     *        feed로 주어지는 Input값으로 no.o layer의 입력차원과 같은 차원.
+     */
+    void GetResult(float *pInput);
 };
 }
 
-#endif // _HGUNeuralNetwork_H_
+#endif  // _HGUNeuralNetwork_H_

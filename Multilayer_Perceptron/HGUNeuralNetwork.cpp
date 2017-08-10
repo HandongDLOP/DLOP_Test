@@ -40,11 +40,6 @@ int HGUNeuralNetwork::Propagate(float *pInput) {
     for (int i = 1; i < m_noLayer; i++) m_aLayer[i].Propagate(
             m_aLayer[i - 1].GetOutput());
 
-    for (int j = 0; j < m_aLayer[m_noLayer - 1].GetOutputDim();
-         j++) std::cout << m_aLayer[m_noLayer - 1].GetOutput()[j] << " ";
-
-    std::cout << '\n';
-
     return true;
 }
 
@@ -151,4 +146,15 @@ int HGULayer::UpdateWeight(float learningRate) {
     }
 
     return true;
+}
+
+void HGUNeuralNetwork::GetResult(float *pInput) {
+
+    Propagate(pInput);
+
+    for (int j = 0; j < m_aLayer[m_noLayer - 1].GetOutputDim(); j++) {
+        std::cout << m_aLayer[m_noLayer - 1].GetOutput()[j] << " ";
+    }
+
+    std::cout << '\n';
 }

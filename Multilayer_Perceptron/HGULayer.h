@@ -129,7 +129,8 @@ public:
      * @brief 바로 아래의 Layer의 Delta를 현 Layer의 Weight과 Delta를 이용해서
      *        계산한다.
      *
-     * @param 바로 아래 Layer의 Delta값이 저장되는 곳의 주소
+     * @param pPrevDeltaBar
+     *        바로 아래 Layer의 Delta값이 저장되는 곳의 주소
      */
     int   Backpropagate(float *pPrevDeltaBar);
 
@@ -145,14 +146,16 @@ public:
      * @brief Output값에 대한 활성함수의 미분 값을 계산한다.
      *        여기에서는 Sigmoid의 정의를 따른 식이 정의되어 있다.
      *
-     * @param 현 레이어에서 ForwardPropagation의 결과로 나온 Output값
+     * @param output
+     *        현 레이어에서 ForwardPropagation의 결과로 나온 Output값
      */
     float DerActivationFromOutput(float output);
 
     /*
      * @brief 한 번에 Weight(and Bias)을 Update하지 않고 일정한 주기마다 Update할 수 있도록 한다.
      *
-     * @param 하이퍼 파라미터인 학습 속도
+     * @param learningRate
+     *        학습에서 사용되는 LearningRate 값이다.
      */
     int UpdateWeight(float learningRate);
 };
